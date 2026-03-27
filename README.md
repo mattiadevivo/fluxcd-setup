@@ -1,6 +1,29 @@
 # FluxCD setup
 
-Example on how to setup FluxCD via Terraform provider + flux Kustomization.
+Example on how to setup FluxCD via Terraform provider + flux monorepo setup.
+
+Flux will reconcile objects this way:
+- will check into `clusters/kind/flux-system` and it will pick the `Kustomization` object, this will ship the `GitRepository` representing this repo + a new `Kustomization` for the parent folder `clusters/kind`
+- inside `clusters/kind` there are 3 `Kustomization`: `apps`, `infra-controllers` and `infra-configs`, they'll be all applied in the cluster
+- `infra-apps` depends on -> `infra-configs` that depends on -> `infra-controllers` so the Kustomization will be applied consecutively
+- it's interesting to see how the `Kustomization` in `apps/kind` applies the resources specified in the `apps/base/*` folders + it patches the `HelmRelease` with the new `weave-gitops-values.yaml`.
+
+We could have used also `ArtifactGenerator` to create an aggregate of configurations from different sources, and then use them in the `Kustomization` like this:
+```yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: my-app
+  namespace: apps
+spec:
+  interval: 30m
+  targetNamespace: apps
+  sourceRef:
+    kind: ExternalArtifact
+    name: my-app-composite
+  path: "./my-app"
+  prune: true
+```
 
 ## Useful resources
 

@@ -15,5 +15,4 @@ resource "flux_bootstrap_git" "this" {
   depends_on         = [github_repository_deploy_key.flux_deploy_key]
   embedded_manifests = true            # extract Flux manifests from the provider instead of GitHub.com
   path               = "clusters/kind" # path to which the cluster will be synced
-
 }
