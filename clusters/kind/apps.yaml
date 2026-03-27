@@ -11,8 +11,8 @@ spec:
   retryInterval: 2m
   timeout: 5m
   sourceRef:
-    kind: ExternalArtifact
-    name: apps
-  path: ./kind
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/kind
   prune: true
   wait: true
