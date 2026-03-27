@@ -1,4 +1,4 @@
-resource "kind_cluster" "fluxcd-setup" {
+resource "kind_cluster" "fluxcd_setup" {
   name            = "fluxcd-setup"
   node_image      = "kindest/node:v1.35.0"
   kubeconfig_path = local.kind_kubeconfig_path

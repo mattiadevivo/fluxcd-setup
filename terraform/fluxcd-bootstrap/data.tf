@@ -1,3 +1,3 @@
-data "github_repository" "fluxcd-setup" {
+data "github_repository" "fluxcd_setup" {
   full_name = var.github_repository
 }

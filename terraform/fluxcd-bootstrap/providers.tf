@@ -21,13 +21,13 @@ terraform {
 
 provider "flux" {
   kubernetes = {
-    host                   = kind_cluster.this.endpoint
-    client_certificate     = kind_cluster.this.client_certificate
-    client_key             = kind_cluster.this.client_key
-    cluster_ca_certificate = kind_cluster.this.cluster_ca_certificate
+    host                   = kind_cluster.fluxcd_setup.endpoint
+    client_certificate     = kind_cluster.fluxcd_setup.client_certificate
+    client_key             = kind_cluster.fluxcd_setup.client_key
+    cluster_ca_certificate = kind_cluster.fluxcd_setup.cluster_ca_certificate
   }
   git = {
-    url = "ssh://git@github.com/${data.github_repository.fluxcd-setup.full_name}.git"
+    url = "ssh://git@github.com/${data.github_repository.fluxcd_setup.full_name}.git"
     ssh = {
       username    = "git"
       private_key = tls_private_key.flux.private_key_pem
