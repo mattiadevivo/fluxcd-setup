@@ -8,7 +8,7 @@ Flux will reconcile objects this way:
 - `infra-apps` depends on -> `infra-configs` that depends on -> `infra-controllers` so the Kustomization will be applied consecutively
 - it's interesting to see how the `Kustomization` in `apps/kind` applies the resources specified in the `apps/base/*` folders + it patches the `HelmRelease` with the new `weave-gitops-values.yaml`.
 
-We could have used also `ArtifactGenerator` to create an aggregate of configurations from different sources, and then use them in the `Kustomization` like this:
+In case we need to aggregate configurations from different sources `ArtifactGenerator` allows to do so, then it can be referenced in the `Kustomization` file like this:
 ```yaml
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
